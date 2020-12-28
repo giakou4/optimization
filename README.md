@@ -17,3 +17,15 @@
 # Assignment 4
 * **<u>fitnessFunction.m</u>** : Implementation of a fitness function for the given problem
 * **<u>geneticAlgorithm.m</u>** : Run of the Genetic Algorithm
+
+## Support
+
+Reach out to me:
+
+- [giakou4's email](mailto:giakonick98@gmail.com "giakonick98@gmail.com")
+
+---
+
+## License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/giakou4/optimization/LICENSE)
