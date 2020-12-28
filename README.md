@@ -20,4 +20,4 @@
 
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]
-(https://github.com/giakou4/optimization/blob/master/LICENSE)
+(https://github.com/giakou4/optimization/master/LICENSE)
