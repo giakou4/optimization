@@ -1,0 +1,1345 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 15page%
+\rightmargin 15page%
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\noindent
+ΤΕΧΝΙΚΕΣ ΒΕΛΤΙΣΤΟΠΟΙΗΣΗΣ
+\end_layout
+
+\begin_layout Author
+\noindent
+Νικόλαος Γιακουμόγλου 9043
+\end_layout
+
+\begin_layout Date
+\noindent
+11 Δεκεμβρίου 2020
+\end_layout
+
+\begin_layout Part
+Steepest Descent
+\end_layout
+
+\begin_layout Subsection*
+\noindent
+Steepest Descent
+\end_layout
+
+\begin_layout Standard
+\noindent
+Στην μέθοδο αυτή έχουμε
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x(k+1)=x(k)-γ(k)\cdotΔ(k)\cdot\nabla f\left(x(k)\right)=x(k)+γ(k)\cdot d(k)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+Δ(k)=I>0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+d(k)=-Δ(k)\cdot\nabla f\left(x(k)\right)=-\nabla f\left(x(k)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Άρα
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x(k+1)=x(k)-\gamma(k)\cdot\nabla f\left(x(k)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+όπου 
+\begin_inset Formula $γ(k)=γ=ct$
+\end_inset
+
+.
+ Κριτήριο τερματισμού αποτελεί αν το μέτρο της κλίσης 
+\begin_inset Formula $\nabla f(x,y)<ε$
+\end_inset
+
+ όπου 
+\begin_inset Formula $ε$
+\end_inset
+
+ η ακρίβεια ή αν υπερβούμε έναν ανώτερο αριθμό επαναλήψεων.
+ Η μέθοδος Steepest Descent είναι η ίδια με προηγουμένως μόνο που αφαιρέθηκε
+ η παράμετρος για τον τρόπο επιλογής του 
+\begin_inset Formula $γ$
+\end_inset
+
+ αφού θα τον θεωρήσουμε σταθερό.
+\end_layout
+
+\begin_layout Section
+\noindent
+ΘΕΜΑ 1
+\end_layout
+
+\begin_layout Subsection
+Εκτύπωση συνάρτησης 
+\begin_inset Formula $f(x_{1},x_{2})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Εκτελούμε τον παρακάτω κώδικα για να δούμε την σνάρτηση 
+\begin_inset Formula $f(x_{1},x_{2})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout LyX-Code
+syms x y 
+\end_layout
+
+\begin_layout LyX-Code
+f = 0.5*x^2 + 0.5*y^2;
+\end_layout
+
+\begin_layout LyX-Code
+figure 
+\end_layout
+
+\begin_layout LyX-Code
+title('Function f(x,y)'); 
+\end_layout
+
+\begin_layout LyX-Code
+fsurf(f) 
+\end_layout
+
+\begin_layout LyX-Code
+xlabel('x'); 
+\end_layout
+
+\begin_layout LyX-Code
+ylabel('y'); 
+\end_layout
+
+\begin_layout LyX-Code
+zlabel('f(x,y)'); 
+\end_layout
+
+\begin_layout LyX-Code
+saveas(gcf,[pwd '
+\backslash
+function.png'])
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename function.png
+	lyxscale 40
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $f(x_{1},x_{2})=\frac{1}{2}x_{1}^{2}+\frac{1}{2}x_{2}^{2}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Πειραματικά αποτελέσματα
+\end_layout
+
+\begin_layout Standard
+Επιλέγουμε ως αρχικό σημείο οποιοδήποτε εκτός του 
+\begin_inset Formula $(0,0)$
+\end_inset
+
+ έστω 
+\begin_inset Formula $(x_{0},y_{0})=(1,1)$
+\end_inset
+
+.
+ Παρατίθενται τα αποτελέσματα.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema1/SteepestDescent_g_0.1_Contour.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsThema1/SteepestDescent_g_0.1_Stem.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Αποτελέσματα για 
+\begin_inset Formula $γ=0.1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema1/SteepestDescent_g_1_Contour.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsThema1/SteepestDescent_g_1_Stem.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Αποτελέσματα για 
+\begin_inset Formula $γ=1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema1/SteepestDescent_g_2_Contour.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsThema1/SteepestDescent_g_2_Stem.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Αποτελέσματα για 
+\begin_inset Formula $γ=2$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema1/SteepestDescent_g_10_Contour.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsThema1/SteepestDescent_g_10_Stem.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Αποτελέσματα για 
+\begin_inset Formula $γ=10$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Βλέπουμε ότι για 
+\begin_inset Formula $γ=0.1$
+\end_inset
+
+ και 
+\begin_inset Formula $1$
+\end_inset
+
+ ο αλγόριθμος συγκλίνει σε λίγα μόλις βήματα.
+ Για 
+\begin_inset Formula $γ\geq2$
+\end_inset
+
+ ο αλγόριθμος αποκλίνει.
+ Συγκεκριμένα για 
+\begin_inset Formula $γ=2$
+\end_inset
+
+ τον σταματάμε γιατί υπερβαίνει τις μέγιστες επαναλήψεις που θέσαμε ως 
+\begin_inset Formula $10.000$
+\end_inset
+
+.
+ Αυτό συμβαίνει γιατί υπάρχει ταλάντωση μεταξύ 2 σημείων.
+ Για 
+\begin_inset Formula $γ=10$
+\end_inset
+
+ ο αλγόριθμος φεύγει πολύ γρήγορα στο άπειρο.
+ Στα σχήματα μάλιστα δεν βλέπουμε την συνάρτηση γιατί ο αλγόριθμος εκτυπώνει
+ ένα διάστημα αυτής, αλλά ούτως ή άλλως οι αριθμητικές τιμές φθάνουν το
+ 
+\begin_inset Formula $10^{16}$
+\end_inset
+
+! Ο αλγόριθμος σταματάει γιατί ικανοποιείται η συνθήκη με την ακρίβεια.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="5">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $γ$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $0.1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $10$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Iterations
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $48$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $MAX\_ITER$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $325$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Αποτελέσματα
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Θεωρητική Ανάλυση
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+f(x_{1},x_{2})=\frac{1}{2}x_{1}^{2}+\frac{1}{2}x_{2}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+\nabla f(x_{1},x_{2})=\begin{bmatrix}x_{1}\\
+x_{2}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+\nabla^{2}f(x_{1},x_{2})=\begin{bmatrix}1 & 0\\
+0 & 1
+\end{bmatrix}>0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Έχουμε
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x(k+1)=x(k)-\gamma(k)\cdot\nabla f\left(x(k)\right)\Rightarrow
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+\Rightarrow x(k+1)=x(k)-γ(k)\cdot\begin{bmatrix}x_{1}\\
+x_{2}
+\end{bmatrix}\Rightarrow
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+\Rightarrow\begin{bmatrix}x_{1}(k+1)\\
+x_{2}(k+1)
+\end{bmatrix}=\begin{bmatrix}x_{1}(k)\\
+x_{2}(k)
+\end{bmatrix}-γ\begin{bmatrix}x_{1}(k)\\
+x_{2}(k)
+\end{bmatrix}\Rightarrow
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x(k+1)=\left(1-γ\right)\cdot x(k)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Ο αλγόριθμος συγκλίνει αν 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+\frac{|x(k+1)|}{|x(k)|}<1\Rightarrow
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+\Rightarrow|1-γ|<1\Rightarrow
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+γ\in(0,2)
+\]
+
+\end_inset
+
+Πράγματι επιβεβαιώνουμε τα πειραματικά αποτελέσματα σύγκλισης για σταθερό
+ 
+\begin_inset Formula $γ$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Part
+Steepest Descent Projection
+\end_layout
+
+\begin_layout Subsection*
+\noindent
+Steepest Descent Projection
+\end_layout
+
+\begin_layout Standard
+\noindent
+Στην μέθοδο αυτή έχουμε περιορισμούς οπότε εισάγουμε την έννοια της προβολής.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+Αρχικά προβάλλουμε τo 
+\begin_inset Formula $x(k)$
+\end_inset
+
+ στο 
+\begin_inset Formula $X$
+\end_inset
+
+ όπου 
+\begin_inset Formula $X$
+\end_inset
+
+ το σύνολο των περιορισμών.
+ Μετά έχουμε:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x(k+1)=x(k)+γ(k)\cdot\left(\overline{x}-x(k)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+όπου
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+\overline{x}=Pr_{X}\left\{ x(k)-s(k)\cdot\nabla f\left(x(k)\right)\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Για την εργασία 
+\begin_inset Formula $γ(k)=γ=ct$
+\end_inset
+
+ και 
+\begin_inset Formula $s(k)=s=ct$
+\end_inset
+
+.
+ Η προβολή υπολογίζεται ως εξής.
+ Έστω 
+\begin_inset Formula $a\leq x\leq b$
+\end_inset
+
+.
+ Τότε
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+Pr_{X}\{x\}=\left\{ \begin{array}{c}
+a,\,\,\,\,\,\,\,\,\,x\leq a\\
+x,\,\,\,\,a<x<b\\
+b,\,\,\,\,\,\,\,\,\,x\geq b
+\end{array}\right.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Κριτήριο τερματισμού αποτελεί αν το μέτρο της κλίσης 
+\begin_inset Formula $\nabla f(x,y)<ε$
+\end_inset
+
+ όπου 
+\begin_inset Formula $ε$
+\end_inset
+
+ η ακρίβεια ή αν υπερβούμε έναν ανώτερο αριθμό επαναλήψεων.
+ Οι περιορισμοί για την εργασία είναι της μορφής
+\begin_inset Formula 
+\[
+-20\leq x_{1}\leq10
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+-12\leq x_{2}\leq15
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+\noindent
+Σχέση με Steepest Descent 
+\end_layout
+
+\begin_layout Standard
+\noindent
+Αν αντικαταστήσουμε το 
+\begin_inset Formula $\overline{x}$
+\end_inset
+
+ στο 
+\begin_inset Formula $x(k+1)$
+\end_inset
+
+ και θεωρήσουμε ότι δεν παίρνουμε την προβολή, δηλαδή 
+\begin_inset Formula $Pr_{X}\{x\}=x$
+\end_inset
+
+, έχουμε 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x(k+1)=x(k)+γ(k)\left(\cancel{x(k)}-s(k)\cdot\nabla f\left(x(k)\right)-\cancel{x(k)}\right)=x(k)-γ(k)\cdot s(k)\cdot\nabla f\left(x(k)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+που ουσιαστικά προκύπτει από τον απλό με την αντικατάσταση
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+γ(k)\leftarrowγ(k)\cdot s(k)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\noindent
+ΘΕΜΑ 2
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Πειραματικά αποτελέσματα
+\end_layout
+
+\begin_layout Standard
+Θεωρούμε 
+\begin_inset Formula $(x_{0},y_{0})=(8,3)$
+\end_inset
+
+, 
+\begin_inset Formula $ε=0.01$
+\end_inset
+
+, 
+\begin_inset Formula $s(k)=15$
+\end_inset
+
+ και 
+\begin_inset Formula $γ(k)=0.1$
+\end_inset
+
+.
+ Ο αλγόριθμος συγκλίνει σε 
+\begin_inset Formula $10$
+\end_inset
+
+ μόλις βήματα.
+ Αν τρέχαμε τον απλό Steepest Descent θα είχαμε 
+\begin_inset Formula $γ'(k)=1.5$
+\end_inset
+
+.
+ Η σύγκλιση ήταν επομένως αναμενόμενη
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema2/SteepestDescent_Contour.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsThema2/SteepestDescent_Stem.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Αποτελέσματα
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\noindent
+ΘΕΜΑ 3
+\end_layout
+
+\begin_layout Standard
+Θεωρούμε 
+\begin_inset Formula $(x_{0},y_{0})=(-5,7)$
+\end_inset
+
+, 
+\begin_inset Formula $ε=0.02$
+\end_inset
+
+, 
+\begin_inset Formula $s(k)=20$
+\end_inset
+
+ και 
+\begin_inset Formula $γ(k)=0.3$
+\end_inset
+
+.
+ Ο αλγόριθμος συγκλίνει σε 
+\begin_inset Formula $1000$
+\end_inset
+
+ βήματα.
+ Αν τρέχαμε τον απλό Steepest Descent θα είχαμε 
+\begin_inset Formula $γ'(k)=6$
+\end_inset
+
+.
+ Η προβολή αποτυγχάνει να βρεί το ελάχιστο.
+ Για να βρούμε το ελάχιστο μια προφανής λύση θα ήταν να μειώσουμε το 
+\begin_inset Formula $s(k)$
+\end_inset
+
+ στο 
+\begin_inset Formula $1$
+\end_inset
+
+ για παράδειγμα.
+ Με αυτόν τον τρόπο ο αλγόριθμος συγκλίνει σε 
+\begin_inset Formula $19$
+\end_inset
+
+ επαναλήψεις.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema3/SteepestDescent_Contour.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsThema3/SteepestDescent_Stem.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Αποτελέσματα
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema3/SteepestDescent_Contour_2.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsThema3/SteepestDescent_Stem_2.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Βελτιωμένα Αποτελέσματα
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\noindent
+ΘΕΜΑ 4
+\end_layout
+
+\begin_layout Standard
+Θεωρούμε 
+\begin_inset Formula $(x_{0},y_{0})=(11,3)$
+\end_inset
+
+, 
+\begin_inset Formula $ε=0.01$
+\end_inset
+
+, 
+\begin_inset Formula $s(k)=0.1$
+\end_inset
+
+ και 
+\begin_inset Formula $γ(k)=0.01$
+\end_inset
+
+.
+ Το αρχικό σημείο είναι εκτός των περιορισμών άρα προβάλλεται στο σύνολο
+ 
+\begin_inset Formula $X$
+\end_inset
+
+.
+ Ο αλγόριθμος συγκλίνει σε 
+\begin_inset Formula $\sim7000$
+\end_inset
+
+ βήματα.
+ Αν τρέχαμε τον απλό Steepest Descent θα είχαμε 
+\begin_inset Formula $γ'(k)=0.001$
+\end_inset
+
+.
+ Η σύγκλιση ήταν επομένως αναμενόμενη αλλά λόγω του μικρού βήματος ο αλγόριθμος
+ κάνει πολλές επαναλήψεις.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema4/SteepestDescent_Contour.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsThema4/SteepestDescent_Stem.png
+	lyxscale 40
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Αποτελέσματα
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
