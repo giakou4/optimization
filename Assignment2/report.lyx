@@ -1,0 +1,3205 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 15page%
+\rightmargin 15page%
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\noindent
+ΤΕΧΝΙΚΕΣ ΒΕΛΤΙΣΤΟΠΟΙΗΣΗΣ
+\end_layout
+
+\begin_layout Author
+\noindent
+Νικόλαος Γιακουμόγλου 9043
+\end_layout
+
+\begin_layout Date
+\noindent
+28 Νοεμβρίου 2020
+\end_layout
+
+\begin_layout Section
+\noindent
+Εισαγωγή
+\end_layout
+
+\begin_layout Standard
+\noindent
+Στόχος της παρούσας εργασίας είναι η ελαχιστοποίηση 1 συνάρτήσεις με 3 διαφορετι
+κές μεθόδους:
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Μέθοδος Steepest Descent 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ function 
+\series bold
+SteepestDescent.m
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Μέθοδος Newton 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ function 
+\series bold
+Newton.m
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Μέθοδος Levenberg-Marqardt 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ functionpt 
+\series bold
+LevenbergMarqardt.m
+\end_layout
+
+\begin_layout Standard
+Σημειώνεται πως οι αλγόριμοι υλοποιήθηκαν βάσει αναζήτησης στο διαδίκτυο
+ και της παράδοσης στο μάθημα και όχι αναλυτική βάσει το βιβλίο (όπως αναφέρεται
+ στην εκφώνηση) καθώς το τελευταίο δεν έχει παραδοθεί ακόμα.
+\end_layout
+
+\begin_layout Section
+\noindent
+Σύντομη Επεξήγηση Αλγορίθμων
+\end_layout
+
+\begin_layout Standard
+\noindent
+Κάθε αλγόριθμος είναι της μορφής
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x(k+1)=x(k)-γ(k)\cdotΔ(k)\cdot\nabla f\left(x(k)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Η διαφορά τους έγγυται στην επιλογή του 
+\begin_inset Formula $Δ(k)$
+\end_inset
+
+ όπου 
+\begin_inset Formula $Δ(k)=Δ(k)^{T}>0$
+\end_inset
+
+.
+ Επίσης ορίζουμε την κατέθυνση ως
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+d(k)=-Δ(k)\cdot\nabla f\left(x(k)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+και τελικά
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x(k+1)=x(k)+γ(k)\cdot d(k)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Μέθοδος Steepest Descent
+\end_layout
+
+\begin_layout Standard
+\noindent
+Στην μέθοδο αυτή έχουμε
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+Δ(k)=I\Rightarrow d(k)=-\nabla f\left(x(k)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Άρα
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x(k+1)=x(k)-\gamma(k)\cdot\nabla f\left(x(k)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Μέθοδος Newton
+\end_layout
+
+\begin_layout Standard
+\noindent
+Στην μέθοδο αυτή έχουμε
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+Δ(k)=\left[\nabla^{2}f\left(x(k)\right)\right]^{-1}\Rightarrow d(k)=-\left[\nabla^{2}f\left(x(k)\right)\right]^{-1}\cdot\nabla f\left(x(k)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Άρα
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x(k+1)=x(k)-\gamma(k)\cdot\left[\nabla^{2}f\left(x(k)\right)\right]^{-1}\cdot\nabla f\left(x(k)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Μέθοδος Levenberg-Marqardt
+\end_layout
+
+\begin_layout Standard
+Η μέθοδος αυτή είναι εξέλιξη της μεθόδου του Newton.
+ Στην μέθοδο αυτή έχουμε
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+Δ(k)=\left[\nabla^{2}f\left(x(k)\right)+μ(k)\cdot I\right]^{-1}\Rightarrow d(k)=-\left[\nabla^{2}f\left(x(k)\right)+μ(k)\cdot I\right]^{-1}\cdot\nabla f\left(x(k)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+όπου 
+\begin_inset Formula $μ(k)>\bar{μ}(k)$
+\end_inset
+
+, 
+\begin_inset Formula $\bar{μ}(k)$
+\end_inset
+
+ η μεγαλύτερη κατά απόλυτη τιμή του Εσσιανού.
+ Με αυτόν τον τρόπο εξασφαλίζουμε ότι 
+\begin_inset Formula $Δ(k)>0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+Άρα
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x(k+1)=x(k)-\gamma(k)\cdot\left[\nabla^{2}f\left(x(k)\right)+μ(k)\cdot I\right]^{-1}\cdot\nabla f\left(x(k)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Σημειώνεται ότι
+\end_layout
+
+\begin_layout Itemize
+Αν 
+\begin_inset Formula $\nabla^{2}f\left(x(k)\right)\llμ(k)\cdot I$
+\end_inset
+
+ τότε η μέθοδος μοιάζει με την μέθοδο Steepest Descent.
+\end_layout
+
+\begin_layout Itemize
+Αν 
+\begin_inset Formula $\nabla^{2}f\left(x(k)\right)\ggμ(k)\cdot I$
+\end_inset
+
+ τότε η μέθοδος μοιάζει με την μέθοδο Newton.
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Αλγόριθμοι επιλογής 
+\begin_inset Formula $γ$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Ο τρόπος επιλογής του 
+\begin_inset Formula $γ(k)$
+\end_inset
+
+ μπορεί να προκύψει σύμφωνα με 3 τρόπους:
+\end_layout
+
+\begin_layout Enumerate
+\noindent
+\begin_inset Formula $γ(k)=γ=σταθερ\text{ό}\,\,\forall k$
+\end_inset
+
+ όπου για να συγκλίνει ο αλγόριθμος πρέπει να επιλέξουμε κατάλληλα το 
+\begin_inset Formula $γ$
+\end_inset
+
+ έτσι ώστε 
+\begin_inset Formula $\left|\frac{x(k+1)}{x(k)}\right|<1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\noindent
+\begin_inset Formula $γ(k)=argmin\,h(γ)=f\left(x(k)-γ\cdot\nabla f\left(x(k)\right)\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+\noindent
+Σύμφωνα με τον κανόνα Armijo 
+\begin_inset Formula $γ(k)=s\cdotβ^{m(k)},0<β<1$
+\end_inset
+
+ και 
+\begin_inset Formula $m(k)$
+\end_inset
+
+ ο μικρότερος μη αρνητικός ακέραιος που ικανοποιεί το κριτήριο 4.
+ Για το α επιλέγεται το διάστημα 
+\begin_inset Formula $[10^{-5},10^{-1}]$
+\end_inset
+
+ ενώ για το β το διάστημα 
+\begin_inset Formula $[10^{-1},1/2]$
+\end_inset
+
+.
+ Το 
+\begin_inset Formula $s$
+\end_inset
+
+ τίθεται αυθαίρετα ίσο με 
+\begin_inset Formula $0.1$
+\end_inset
+
+.
+ Για τον κανόνα ισχύει: 
+\begin_inset Formula 
+\[
+f\left(x(k+1)\right)\leq f\left(x(k)\right)+a\cdotγ(k)\cdot d(k)^{T}\cdot\nabla f\left(x(k)\right),0<a<b<1\Rightarrow
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\Rightarrow f\left(x(k)+sb^{m(k)}\right)\leq f\left(x(k)\right)+a\cdotγ(k)\cdot d(k)^{T}\cdot\nabla f\left(x(k)\right)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Κριτήριο τερματισμού
+\end_layout
+
+\begin_layout Standard
+Κριτήριο τερματισμού αποτελεί αν το μέτρο της κλίσης 
+\begin_inset Formula $\nabla f(x,y)<ε$
+\end_inset
+
+ όπου 
+\begin_inset Formula $ε$
+\end_inset
+
+ η ακρίβεια ή αν υπερβούμε έναν ανώτερο αριθμό επαναλήψεων.
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Κώδικας
+\end_layout
+
+\begin_layout Standard
+Η κλήση των συναρτώσεων είναι οι εξής:
+\end_layout
+
+\begin_layout LyX-Code
+function [x, y, F] = SteepestDescent(f, e, x0, y0, ALGORITHM, g, KMAX)
+\begin_inset Newline newline
+\end_inset
+
+function [x, y, F] = Newton(f, e, x0, y0, ALGORITHM, g, KMAX)
+\begin_inset Newline newline
+\end_inset
+
+function [x, y, F] = LevenbergMarquardt(f, e, x0, y0, ALGORITHM, g, KMAX)
+\end_layout
+
+\begin_layout Standard
+όπου η είσοδος ALGORITHM παίρνει τιμες 
+\begin_inset Formula $1,2$
+\end_inset
+
+ ή 
+\begin_inset Formula $3$
+\end_inset
+
+ και εφαρμόζει τους αντίστοιχους τρόπους επιλογής του 
+\begin_inset Formula $γ$
+\end_inset
+
+ όπως αναφέρθηκε παραπάνω.
+ Στην περίπτωση που ο αλγόριθμος επιλεγεί ο 
+\begin_inset Formula $2$
+\end_inset
+
+ ή ο 
+\begin_inset Formula $3$
+\end_inset
+
+, το 
+\begin_inset Formula $γ$
+\end_inset
+
+ δεν λαμβάνεται υπ'όψη στην είσοδο.
+\end_layout
+
+\begin_layout Section
+\noindent
+Βοηθητικές Συναρτήσεις σε MATLAB
+\end_layout
+
+\begin_layout Standard
+\noindent
+Για την εποπτική επικύρωση των αποτελεσμάτων, χρησιμοποιήθηκε το 
+\series bold
+wolfram
+\series default
+.
+ Τα αποτελέσματα είναι ότι η 
+\begin_inset Formula $f(x,y)=x^{3}\cdot e^{-x^{2}-y^{4}}$
+\end_inset
+
+ παρουσιάζει τοπικό ελάχιστο στο 
+\begin_inset Formula $(x,y)=(1.22,0)$
+\end_inset
+
+ και τοπικό μέγιστο στο 
+\begin_inset Formula $(x,y)=(-1.22,0)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+Για τον σκοπό των προσομοιώσεων φτιάχτηκε η συνάρτηση 
+\series bold
+PlotStem3.m
+\series default
+ που εμφανίζει στο την τρισδιάστατη συνάρτηση στον χώρο με τα σημεία που
+ βρήκε ο αλγόριθμος σε κάθε επανάληψη.
+ Επίσης για να υπάρχει καλύτερη επισκόπηση των αποτελεσμάτων φτιάχτηκε και
+ η συνάρτηση 
+\series bold
+PlotContour.m 
+\series default
+που εμφανίζει το contour plot με τα σημεία που βρήκε ο αλγόριθμος σε κάθε
+ επανάληψη δείχνοντας το τελικό και το αρχικό σημείο με βέλη.
+ Για τα βέλη βρέθηκε η συνάρτηση 
+\series bold
+Arrow.m
+\series default
+ απο το mathexchange και χρησιμοποιήθηκε αυτούσια.
+ Τέλος για την εύρεση του 
+\begin_inset Formula $γ$
+\end_inset
+
+ από τον κανόνα του Armijo (ALGORITHM=3), δημιουργήθηκε ξεχωριστή συνάρτηση
+ 
+\series bold
+Armijo.m 
+\series default
+ενώ για την ελαχιστοποίηση (ALGORITHM=2) χρησιμοποιήθηκε η συνάρτηση από
+ το προηγούμενο παραδοτέο αυτούσια μετονομασμένη σε 
+\series bold
+Golden.m
+\series default
+.
+\end_layout
+
+\begin_layout Section
+\noindent
+Συνάρτηση 
+\begin_inset Formula $f(x,y)=x^{3}\cdot e^{-x^{2}-y^{4}}$
+\end_inset
+
+ (ΘΕΜΑ 1)
+\end_layout
+
+\begin_layout Subsection
+Εκτύπωση συνάρτησης 
+\begin_inset Formula $f(x,y)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+H προσομοιώσεις βρίσκονται στο αρχείο
+\series bold
+ thema1.m
+\series default
+.
+ Τα figures αποθηκεύονται αυτόματα στον τωρινό φάκελο.
+ Εκτυπώνουμε την δοσμένη συνάρτηση με την χρήση της 
+\begin_inset Formula $\mathit{fsurf}$
+\end_inset
+
+.
+ Σημειώνεται ότι stem plots και contour plots της 
+\begin_inset Formula $f$
+\end_inset
+
+ θα δούμε στην συνέχεια.
+ Το αποτέλεσμα είναι το εξής
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename function.png
+	lyxscale 40
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset Formula $f(x,y)=x^{3}\cdot e^{-x^{2}-y^{4}}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Υπολογισμός 
+\begin_inset Formula $\nabla f(x,y)$
+\end_inset
+
+ και 
+\begin_inset Formula $\nabla^{2}f(x,y)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+f(x,y)=x^{3}\cdot e^{-x^{2}-y^{4}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\nabla f(x,y)=\begin{bmatrix}\left(3x^{2}-2x^{4}\right)e^{-x^{2}-y^{4}}\\
+-4x^{3}y^{3}e^{-x^{2}-y^{4}}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\nabla^{2}f(x,y)=e^{-x^{2}-y^{4}}\cdot\begin{bmatrix}6x+4x^{5}-14x^{3}\,\,\,\,\,\,\, & 8x^{4}y^{3}-12x^{2}y^{3}\\
+8x^{4}y^{3}-12x^{2}y^{3}\,\,\,\,\,\,\, & 16x^{3}y^{6}-12x^{3}y^{2}
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\noindent
+Μέθοδος Steepest Descent (ΘΕΜΑ 2) 
+\end_layout
+
+\begin_layout Standard
+\noindent
+H προσομοιώσεις βρίσκονται στο αρχείο
+\series bold
+ thema2.m
+\series default
+.
+ Τα figures αποθηκεύονται αυτόματα στον φάκελο 
+\begin_inset Formula $\mathit{PlotsSteepestDescent}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Σημείο 1 
+\begin_inset Formula $(x,y)=(0,0)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Επειδή ισχύει ότι 
+\begin_inset Formula $|\nabla f(0,0)|=0$
+\end_inset
+
+ ο αλγόριθμος θα τερματίζει απευθείας ανεξαρτήτου μεθόδου επιλογής 
+\begin_inset Formula $γ$
+\end_inset
+
+.
+ Οπότε έχουμε κοινά αποτελέσματα τα εξής:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_1_Point_1_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_1_Point_1_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 1 Αλγόριθμοι 1 έως 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Σημείο 2 
+\begin_inset Formula $(x,y)=(-1,-1)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Καταρχάς, για να βρούμε σταθερό 
+\begin_inset Formula $γ$
+\end_inset
+
+, τρέχουμε τον αλγόριθμο για διάφορα 
+\begin_inset Formula $γ$
+\end_inset
+
+ από 
+\begin_inset Formula $0.1$
+\end_inset
+
+ έως 
+\begin_inset Formula $2$
+\end_inset
+
+ περιορίζοντας την ακρίβεια για ταχύτερα αποτελέσματα.
+ Επίσης θέτουμε τον μέγιστο αριθμό επαναλήψεων στις 
+\begin_inset Formula $1000$
+\end_inset
+
+ που σημαίνει ότι για 
+\begin_inset Formula $100$
+\end_inset
+
+0 επαναλήψεις ο αλγόριθμος μάλλον δημιουργέι ταλαντώσεις (εμφανίζονται για
+ 
+\begin_inset Formula $γ\approx1.3$
+\end_inset
+
+).
+ Επιλέγουμε 
+\begin_inset Formula $γ=1.1$
+\end_inset
+
+.
+ Σημειώνεται πως αύτο μπορεί να γίνει θεωρητικά έτσι ώστε 
+\begin_inset Formula $\left|\frac{x(k+1)}{x(k)}\right|<1$
+\end_inset
+
+ αλλά εμείς περιοριζόμαστε σε πειραματικά αποτελέσματα.
+ Για αυτόν τον λόγο παραθέτουμε το γράφημα των αριθμό των επαναλήψεων για
+ διάφορα 
+\begin_inset Formula $γ$
+\end_inset
+
+.
+ Ο αλγόριθμος συγκλίνει.
+ Αν επιλέξουμε σταθερό βήμα συγκλίνει σε 
+\begin_inset Formula $176$
+\end_inset
+
+ επαναλήψεις, αν ελαχιστοποιήσουμε την συνάρτηση 
+\begin_inset Formula $h(γ)=f\left(x(k)-γ\cdot\nabla f\left(x(k)\right)\right)$
+\end_inset
+
+ με την βοήθεια της μεθόδου της Χρυσής τομής συγκλίνει σε 
+\begin_inset Formula $3061$
+\end_inset
+
+ επαναλήψεις και σε περισσότερο χρόνο και για τον κανόνα του Armijo συγκλίνει
+ σε 
+\begin_inset Formula $2012$
+\end_inset
+
+ επαναλήψεις.
+ Παραθέτουμε τα αποτελέσματα για κάθε αλγόριθμο (ALGORITHM=1,2,3):
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_1_Point_2_Iterations_VS_Gamma.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 2 Αλγόριθμος 1 Επαναλήψεις
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_1_Point_2_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_1_Point_2_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 2 Αλγόριθμος 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_2_Point_2_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_2_Point_2_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 2 Αλγόριθμος 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_3_Point_2_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_3_Point_2_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 2 Αλγόριθμος 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Σημείο 3 
+\begin_inset Formula $(x,y)=(1,1)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Καταρχάς, για να βρούμε σταθερό 
+\begin_inset Formula $γ$
+\end_inset
+
+, τρέχουμε τον αλγόριθμο για διάφορα 
+\begin_inset Formula $γ$
+\end_inset
+
+ από 
+\begin_inset Formula $0.1$
+\end_inset
+
+ έως 
+\begin_inset Formula $2$
+\end_inset
+
+ περιορίζοντας την ακρίβεια για ταχύτερα αποτελέσματα.
+ Επίσης θέτουμε τον μέγιστο αριθμό επαναλήψεων στις 
+\begin_inset Formula $1000$
+\end_inset
+
+ που σημαίνει ότι για 
+\begin_inset Formula $1000$
+\end_inset
+
+ επαναλήψεις ο αλγόριθμος μάλλον δημιουργέι ταλαντώσεις.
+ Επιλέγουμε 
+\begin_inset Formula $γ=0.1$
+\end_inset
+
+.
+ Σημειώνεται πως αύτο μπορεί να γίνει θεωρητικά έτσι ώστε 
+\begin_inset Formula $\left|\frac{x(k+1)}{x(k)}\right|<1$
+\end_inset
+
+ αλλά εμείς περιοριζόμαστε σε πειραματικά αποτελέσματα.
+ Για αυτόν τον λόγο παραθέτουμε το γράφημα των αριθμό των επαναλήψεων για
+ διάφορα 
+\begin_inset Formula $γ$
+\end_inset
+
+.
+ Ωστόσο επειδή ο αλγόριθμος αποκλίνει, μεγαλύτερο 
+\begin_inset Formula $γ$
+\end_inset
+
+ οδηγεί σε πιο γρήγορη απόκλιση (η ταχύτερη σύγλιση για μεγαλύτερο 
+\begin_inset Formula $γ$
+\end_inset
+
+ είναι ψευδαίσθηση).
+ Ο αλγόριθμος αποκλίνει και σταματάει σε 
+\begin_inset Formula $4774$
+\end_inset
+
+ επαναλήψεις για σταθερό 
+\begin_inset Formula $γ$
+\end_inset
+
+, σε 
+\begin_inset Formula $2$
+\end_inset
+
+ επαναλήψεις αν ελαχιστοποιήσουμε την 
+\begin_inset Formula $h(γ)=f\left(x(k)-γ\cdot\nabla f\left(x(k)\right)\right)$
+\end_inset
+
+ ή 
+\begin_inset Formula $4885$
+\end_inset
+
+ για τον κανόνα Armijo.
+ Το ίδιο ισχύει και για μικρά βήματα, όταν το βήμα είναι σταθερό, καθώς
+ παγιδεύεται σε περιοχή μικρών κλίσεων.
+ Παραθέτουμε τα αποτελέσματα για κάθε αλγόριθμο (ALGORITHM=1,2,3):
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_1_Point_3_Iterations_VS_Gamma.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 3 Αλγόριθμος 1 Επαναλήψεις
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_1_Point_3_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_1_Point_3_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 3 Αλγόριθμος 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_2_Point_3_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_2_Point_3_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 3 Αλγόριθμος 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_3_Point_3_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsSteepestDescent/Algorithm_3_Point_3_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 3 Αλγόριθμος 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\noindent
+Μέθοδος Newton (ΘΕΜΑ 3) 
+\end_layout
+
+\begin_layout Standard
+\noindent
+H προσομοιώσεις βρίσκονται στο αρχείο
+\series bold
+ thema3.m
+\series default
+.
+ Τα figures αποθηκεύονται αυτόματα στον φάκελο 
+\begin_inset Formula $\mathit{PlotsNewton}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Σημείο 1 
+\begin_inset Formula $(x,y)=(0,0)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Επειδή ισχύει ότι 
+\begin_inset Formula $|\nabla f(0,0)|=0$
+\end_inset
+
+ ο αλγόριθμος θα τερματίζει απευθείας ανεξαρτήτου μεθόδου επιλογής 
+\begin_inset Formula $γ$
+\end_inset
+
+ (ALGORITHM=1,2,3).
+ Οπότε έχουμε κοινά αποτελέσματα τα εξής (παραθέτουμε μόνο για ALGORITHM=1):
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsNewton/Algorithm_1_Point_1_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsNewton/Algorithm_1_Point_1_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 1 Αλγόριθμοι 1 έως 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Σημείο 2 
+\begin_inset Formula $(x,y)=(-1,-1)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+O αλγόριθμος δεν θα ξεκινήσει καθώς ο Εσσιανός δεν είναι θετικά ορισμένος
+ και συνεπώς εμφανίζεται το αντίστοιχο μήνυμα στην οθόνη μας.
+ Πράγματι 
+\begin_inset Formula 
+\[
+\nabla^{2}f(-1,-1)=\begin{bmatrix}0.5413 & 0.5413\\
+0.5413 & -0.5413
+\end{bmatrix}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+αφού 
+\begin_inset Formula $\det\left[\nabla^{2}f(-1,-1)\right]=-0.5861<0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Σημείο 3 
+\begin_inset Formula $(x,y)=(1,1)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+O αλγόριθμος δεν θα ξεκινήσει καθώς ο Εσσιανός είναι αρνητικά ορισμένος
+ και συνεπώς εμφανίζεται το αντίστοιχο μήνυμα στην οθόνη μας.
+ Πράγματι 
+\begin_inset Formula 
+\[
+\nabla^{2}f(1,1)=\begin{bmatrix}-0.5413 & -0.5413\\
+-0.5413 & 0.5413
+\end{bmatrix}<0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+αφού 
+\begin_inset Formula $\det\left[\nabla^{2}f(-1,-1)\right]=-0.5861<0$
+\end_inset
+
+ και 
+\begin_inset Formula $-0.5413<0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Σημείο 4 
+\begin_inset Formula $(x,y)=(-0.9,0.3)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Για να αποδείξουμε την ορθή χρήση του αλγορίθμου βρίσκουμε ένα σημείο όπου
+ ο εσσιανός είναι θετικά ορισμένος.
+ Πράγματι
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+\nabla^{2}f(-0.9,0.3)=\begin{bmatrix}1.0785 & -0.0533\\
+-0.0533 & 0.3437
+\end{bmatrix}>0
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+αφού 
+\begin_inset Formula $\det\left[\nabla^{2}f(-0.9,0.3\right]=0.3678>0$
+\end_inset
+
+ και 
+\begin_inset Formula $1.0785>0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+Καταρχάς, για να βρούμε σταθερό 
+\begin_inset Formula $γ$
+\end_inset
+
+, τρέχουμε τον αλγόριθμο για διάφορα 
+\begin_inset Formula $γ$
+\end_inset
+
+ από 
+\begin_inset Formula $0.1$
+\end_inset
+
+ έως 
+\begin_inset Formula $2$
+\end_inset
+
+ περιορίζοντας την ακρίβεια για ταχύτερα αποτελέσματα.
+ Επίσης θέτουμε τον μέγιστο αριθμό επαναλήψεων στις 
+\begin_inset Formula $1000$
+\end_inset
+
+ που σημαίνει ότι για 
+\begin_inset Formula $1000$
+\end_inset
+
+ επαναλήψεις ο αλγόριθμος μάλλον δημιουργέι ταλαντώσεις (εμφανίζονται για
+ 
+\begin_inset Formula $γ\approx1.3$
+\end_inset
+
+).
+ Επιλέγουμε 
+\begin_inset Formula $γ=0.1$
+\end_inset
+
+ καθώς για μεγάλα 
+\begin_inset Formula $γ$
+\end_inset
+
+ ο εσσιανός δεν είναι θετικά ορισμένος.
+ Σημειώνεται πως αύτο μπορεί να γίνει θεωρητικά έτσι ώστε 
+\begin_inset Formula $\left|\frac{x(k+1)}{x(k)}\right|<1$
+\end_inset
+
+ αλλά εμείς περιοριζόμαστε σε πειραματικά αποτελέσματα.
+ Για αυτόν τον λόγο παραθέτουμε το γράφημα των αριθμό των επαναλήψεων για
+ διάφορα 
+\begin_inset Formula $γ$
+\end_inset
+
+ (στα 
+\begin_inset Quotes eld
+\end_inset
+
+μεγάλα
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset Formula $ $
+\end_inset
+
+γ ο αλγόριθμος κάνει abort οπότε 
+\begin_inset Formula $k=2$
+\end_inset
+
+).
+ Ο αλγόριθμος συγκλίνει σε 
+\begin_inset Formula $7$
+\end_inset
+
+ επαναλήψεις για σταθερό 
+\begin_inset Formula $γ$
+\end_inset
+
+, 
+\begin_inset Formula $9$
+\end_inset
+
+ αν ελαχιστοποιήσουμε την 
+\begin_inset Formula $h(γ)=f\left(x(k)-γ\cdot\nabla f\left(x(k)\right)\right)$
+\end_inset
+
+ και 
+\begin_inset Formula $84$
+\end_inset
+
+ με τον κανόνα Armijo.
+ Παραθέτουμε τα αποτελέσματα για κάθε αλγόριθμο (ALGORITHM=1,2,3):
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsNewton/Algorithm_1_Point_4_Iterations_VS_Gamma.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 4 Αλγόριθμος 1 Επαναλήψεις
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsNewton/Algorithm_1_Point_4_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsNewton/Algorithm_1_Point_4_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 4 Αλγόριθμος 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsNewton/Algorithm_2_Point_4_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsNewton/Algorithm_2_Point_4_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 4 Αλγόριθμος 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsNewton/Algorithm_3_Point_4_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsNewton/Algorithm_3_Point_4_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 4 Αλγόριθμος 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\noindent
+Μέθοδος Levenberg-Marquardt (ΘΕΜΑ 4) 
+\end_layout
+
+\begin_layout Standard
+\noindent
+H προσομοιώσεις βρίσκονται στο αρχείο
+\series bold
+ thema4.m
+\series default
+.
+ Τα figures αποθηκεύονται αυτόματα στον φάκελο 
+\begin_inset Formula $\mathit{PlotsLevenbergMarquardt}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Σημείο 1 
+\begin_inset Formula $(x,y)=(0,0)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Επειδή ισχύει ότι 
+\begin_inset Formula $|\nabla f(0,0)|=0$
+\end_inset
+
+ ο αλγόριθμος θα τερματίζει απευθείας ανεξαρτήτου μεθόδου επιλογής 
+\begin_inset Formula $γ$
+\end_inset
+
+.
+ Οπότε έχουμε κοινά αποτελέσματα τα εξής:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_1_Point_1_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_1_Point_1_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 1 Αλγόριθμοι 1 έως 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Σημείο 2 
+\begin_inset Formula $(x,y)=(-1,-1)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Εδώ λύνεται το πρόβλημα αν ο εσσινανός δεν είναι θετικά ορισμένος.
+ Καταρχάς, για να βρούμε σταθερό 
+\begin_inset Formula $γ$
+\end_inset
+
+, τρέχουμε τον αλγόριθμο για διάφορα 
+\begin_inset Formula $γ$
+\end_inset
+
+ από 
+\begin_inset Formula $0.1$
+\end_inset
+
+ έως 
+\begin_inset Formula $2$
+\end_inset
+
+ περιορίζοντας την ακρίβεια για ταχύτερα αποτελέσματα.
+ Επίσης θέτουμε τον μέγιστο αριθμό επαναλήψεων στις 
+\begin_inset Formula $1000$
+\end_inset
+
+ που σημαίνει ότι για 
+\begin_inset Formula $1000$
+\end_inset
+
+ επαναλήψεις ο αλγόριθμος μάλλον δημιουργέι ταλαντώσεις.
+ Εδώ όμως τα μεγάλα 
+\begin_inset Formula $γ$
+\end_inset
+
+ δηλώνουν ταχύτερη απόκλιση.
+ Επιλέγουμε 
+\begin_inset Formula $γ=0.1$
+\end_inset
+
+.
+ Σημειώνεται πως αύτο μπορεί να γίνει θεωρητικά έτσι ώστε 
+\begin_inset Formula $\left|\frac{x(k+1)}{x(k)}\right|<1$
+\end_inset
+
+ αλλά εμείς περιοριζόμαστε σε πειραματικά αποτελέσματα.
+ Ο αλγόριθμος συγκλίνει σε 
+\begin_inset Formula $114$
+\end_inset
+
+ επαναλήψεις για σταθερό 
+\begin_inset Formula $γ$
+\end_inset
+
+, 
+\begin_inset Formula $328$
+\end_inset
+
+ αν ελαχιστοποιήσουμε την 
+\begin_inset Formula $h(γ)=f\left(x(k)-γ\cdot\nabla f\left(x(k)\right)\right)$
+\end_inset
+
+ και 
+\begin_inset Formula $793$
+\end_inset
+
+ με τον κανόνα Armijo.
+ Παραθέτουμε τα αποτελέσματα για κάθε αλγόριθμο (ALGORITHM=1,2,3):
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_1_Point_2_Iterations_VS_Gamma.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 3 Αλγόριθμος 1 Επαναλήψεις
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_1_Point_2_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_1_Point_2_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 2 Αλγόριθμος 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_2_Point_2_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_2_Point_2_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 2 Αλγόριθμος 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_3_Point_2_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_3_Point_2_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 2 Αλγόριθμος 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Σημείο 3 
+\begin_inset Formula $(x,y)=(1,1)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Καταρχάς, για να βρούμε σταθερό 
+\begin_inset Formula $γ$
+\end_inset
+
+, τρέχουμε τον αλγόριθμο για διάφορα 
+\begin_inset Formula $γ$
+\end_inset
+
+ από 
+\begin_inset Formula $0.1$
+\end_inset
+
+ έως 
+\begin_inset Formula $2$
+\end_inset
+
+ περιορίζοντας την ακρίβεια για ταχύτερα αποτελέσματα.
+ Επίσης θέτουμε τον μέγιστο αριθμό επαναλήψεων στις 
+\begin_inset Formula $1000$
+\end_inset
+
+ που σημαίνει ότι για 
+\begin_inset Formula $1000$
+\end_inset
+
+ επαναλήψεις ο αλγόριθμος μάλλον δημιουργέι ταλαντώσεις.
+ Επιλέγουμε 
+\begin_inset Formula $γ=0.1$
+\end_inset
+
+.
+ Σημειώνεται πως αύτο μπορεί να γίνει θεωρητικά έτσι ώστε 
+\begin_inset Formula $\left|\frac{x(k+1)}{x(k)}\right|<1$
+\end_inset
+
+ αλλά εμείς περιοριζόμαστε σε πειραματικά αποτελέσματα.
+ Για αυτόν τον λόγο παραθέτουμε το γράφημα των αριθμό των επαναλήψεων για
+ διάφορα 
+\begin_inset Formula $γ$
+\end_inset
+
+.
+ Ωστόσο επειδή ο αλγόριθμος αποκλίνει, μεγαλύτερο 
+\begin_inset Formula $γ$
+\end_inset
+
+ οδηγεί σε πιο γρήγορη απόκλιση (η ταχύτερη σύγλιση για μεγαλύτερο 
+\begin_inset Formula $γ$
+\end_inset
+
+ είναι ψευδαίσθηση).
+ Παρόλο που λύσαμε το πρόβλημα περί θετικά ορισμένου εσσιανού, ο αλγόριθμος
+ αποκλίνει και σταματάει σε 
+\begin_inset Formula $155$
+\end_inset
+
+ επαναλήψεις για σταθερό 
+\begin_inset Formula $γ$
+\end_inset
+
+, σε 
+\begin_inset Formula $2$
+\end_inset
+
+ επαναλήψεις αν ελαχιστοποιήσουμε την 
+\begin_inset Formula $h(γ)=f\left(x(k)-γ\cdot\nabla f\left(x(k)\right)\right)$
+\end_inset
+
+ ή 
+\begin_inset Formula $159$
+\end_inset
+
+ για τον κανόνα Armijo.
+ Παραθέτουμε τα αποτελέσματα για κάθε αλγόριθμο (ALGORITHM=1,2,3):
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_1_Point_3_Iterations_VS_Gamma.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 3 Αλγόριθμος 1 Επαναλήψεις
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_1_Point_3_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_1_Point_3_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 3 Αλγόριθμος 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_2_Point_3_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_2_Point_3_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 3 Αλγόριθμος 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_3_Point_3_Contour.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename PlotsLevenbergMarqardt/Algorithm_3_Point_3_Stem.png
+	lyxscale 40
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σημείο 3 Αλγόριθμος 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\noindent
+Συμπεράσματα
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align left
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ALGORITHM
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Point #1 
+\begin_inset Formula $(0,0)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Point #2 
+\begin_inset Formula $(-1,-1)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $176$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $3061$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $2012$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Point #3 
+\begin_inset Formula $(1,1)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+diverges
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+diverges
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+diverges
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Steepest Descent Iterations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align left
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ALGORITHM
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Point #1 
+\begin_inset Formula $(0,0)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Point #2 
+\begin_inset Formula $(-1,-1)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+hessian<0
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Point #3 
+\begin_inset Formula $(1,1)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+hessian<0
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Point #4 
+\begin_inset Formula $(-0.9,0.3)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $7$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $9$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $84$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Newton Iterations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\align left
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ALGORITHM
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+#3
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Point #1 
+\begin_inset Formula $(0,0)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Point #2 
+\begin_inset Formula $(-1,-1)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $114$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $328$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $793$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Point #3 
+\begin_inset Formula $(1,1)$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+diverges
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+diverges
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+diverges
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Levenberg-Marquardt Iterations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Η μέθοδος Steepest Descent συγκλίνει σε λιγότερες επαναλήψεις αν χρησιμοποιήσουμ
+ε τον αλγόριθμο με σταθερό 
+\begin_inset Formula $γ$
+\end_inset
+
+ σε σχέση με την ελαχιστοπίηση της 
+\begin_inset Formula $h(γ)=f\left(x(k)-γ\cdot\nabla f\left(x(k)\right)\right)$
+\end_inset
+
+ ή τον κανόνα του Armijo που μάλιστα χρειάζονται τον περισσότερο χρόνο.
+ Ανάμεσα στις 2 καλύτερες επιλογές, προτιμούμε την πιο απλή υλοποίηση με
+ σταθερο 
+\begin_inset Formula $γ.$
+\end_inset
+
+ Προσοχή ότι για να είναι αυτός ο πιο αποδοτικός αλγόριθμος πρέπει να βρούμε
+ από πριν 
+\begin_inset Formula $γ$
+\end_inset
+
+ που η μέθοδος συγκλίνει.
+ Αξιζει βέβαια να σημειωθεί πως ο αλγόριθμος με την ελαχιστοποίηση της 
+\begin_inset Formula $h(γ)=f\left(x(k)-γ\cdot\nabla f\left(x(k)\right)\right)$
+\end_inset
+
+ αργεί καθώς το 
+\begin_inset Formula $γ$
+\end_inset
+
+ που υπολογίζει είναι πολύ μικρό στις τελευταίες επαναλήψεις.
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+Η μέθοδος Newton παρουσιάζει παρόμοια αποτελέσματα για σταθερό γ και τον
+ κανόνα του Armijo ενώ για την ελαχιστοποίηση της 
+\begin_inset Formula $h(γ)=f\left(x(k)-γ\cdot\nabla f\left(x(k)\right)\right)$
+\end_inset
+
+ συγκλίνει σε μόλις 9 επαναλήψεις.
+ Προτιμούμε τον τελευταίο αλγόριθμο για προφανείς λόγους.
+\end_layout
+
+\begin_layout Standard
+\noindent
+Η μέθοδος Levenberg-Marqardt αποτελεί εξέίξη της μεθόδου του Newton καθως
+ εξαλείφει το πρόβλημα περί θετικά ορισμένου εσσιανού.
+ Για σταθερό 
+\begin_inset Formula $γ$
+\end_inset
+
+ ο αλγόριθμος τερματίζει στις λιγότερες επαναλήψεις, ακολουθεί ο αλγόριθμος
+ με την ελαχιστοποίηση της 
+\begin_inset Formula $h(γ)=f\left(x(k)-γ\cdot\nabla f\left(x(k)\right)\right)$
+\end_inset
+
+ και τέλος βρίσκεται ο κανόνας του Armijo.
+\end_layout
+
+\begin_layout Standard
+\noindent
+Ανάμεσα στις 
+\begin_inset Formula $3$
+\end_inset
+
+ μεθόδους, η μέθοδος Levenberg-Marqardt φαίνεται να αντιμετωπίζει καλύτερα
+ το πρόβλημα τις ελαχιστοποίησης αφενός γιατι συγκλίνει σε λιγότερες επαναλήψεις
+, αφετέρου γιατί προσεγγίζει και τις δύο άλλες μεθόδους βάσει την επιλογή
+ του 
+\begin_inset Formula $m(k)$
+\end_inset
+
+ όπως αναφέρθηκε στην ενότητα 2.3.
+\end_layout
+
+\begin_layout Standard
+\noindent
+Ωστόσο και οι 3 μέθοδοι αποτυγχάνουν να βρουν το ελάχιστο στο σημείο 
+\begin_inset Formula $3$
+\end_inset
+
+ 
+\begin_inset Formula $(x,y)=(1,1)$
+\end_inset
+
+ καθώς παγιδεύονται σε περιοχή πολύ χαμηλού gradient - τo διάνυσμα κλίσης
+ 
+\begin_inset Quotes eld
+\end_inset
+
+αποπροσανατολίζεται
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\end_body
+\end_document
