@@ -1,0 +1,2301 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 15page%
+\rightmargin 15page%
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+\noindent
+ΤΕΧΝΙΚΕΣ ΒΕΛΤΙΣΤΟΠΟΙΗΣΗΣ
+\end_layout
+
+\begin_layout Author
+\noindent
+Νικόλαος Γιακουμόγλου 9043
+\end_layout
+
+\begin_layout Date
+\noindent
+13 Νοεμβρίου 2020
+\end_layout
+
+\begin_layout Section
+\noindent
+ΕΙΣΑΓΩΓΗ
+\end_layout
+
+\begin_layout Standard
+\noindent
+Στόχος της παρούσας εργασίας είναι η ελαχιστοποίηση 3 συναρτήσεων (αυστηρά
+ σχεδόν κυρτών) με 4 διαφορετικές μεθόδους:
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Μέθοδος Διχοτόμου (Bisection Method) 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ function 
+\series bold
+myBisection.m
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Μέθοδος Χρυσού Τομέα (Golden Section Method) 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ function 
+\series bold
+myGolden.m
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Μέθοδος Fibonacci (Fibonacci Method) 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ functionpt 
+\series bold
+myFibonacci.m
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Μέθοδος Διχοτόμου με χρήση Παραγώγου (Bisection with Derivative Method)
+ 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+function 
+\series bold
+myBisectionDerivative.m
+\end_layout
+
+\begin_layout Standard
+Σημειώνεται πως οι αλγόριμοι υλοποιήθηκαν βάσει αναζήτησης στο διαδίκτυο
+ και της παράδοσης στο μάθημα και όχι αναλυτική βάσει το βιβλίο (όπως αναφέρεται
+ στην εκφώνηση) καθώς το τελευταίο δεν έχει παραδοθεί ακόμα.
+\end_layout
+
+\begin_layout Standard
+\noindent
+Οι συναρτήσεις προς εύρεση ελαχίστου στο δοσμένο διάστημα 
+\begin_inset Formula $[2,5]$
+\end_inset
+
+ είναι οι εξής:
+\end_layout
+
+\begin_layout Itemize
+\noindent
+\begin_inset Formula $f_{1}(x)=(x-2)^{2}-sin(x+3)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\noindent
+\begin_inset Formula $f_{2}(x)=e^{-5x}+(x+2)cos^{2}(0.5x)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\noindent
+\begin_inset Formula $f_{3}(x)=x^{2}sin(x+2)-(x+1)^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename functions.png
+	lyxscale 60
+	width 37page%
+	height 22pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Συναρτήσεις
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Οι συναρτήσεις και τα διαστήματα δηλώνονται στην αρχή κάθε script (thema1.m,
+ thema2.m, thema3.m, thema4.m).
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+Σημειώνεται ότι κάποιος μπορεί να τρέξει τα scripts thema1.m, thema2.m, thema3.m,
+ thema4.m ένα προς ένα ή να τρέξει το script main.m που τρέχει όλα τα παραπάνω
+ scripts ένα προς ένα.
+\end_layout
+
+\begin_layout Section
+\noindent
+ΣΥΝΤΟΜΗ ΕΞΗΓΗΣΗ ΑΛΓΟΡΙΘΜΩΝ
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Μέθοδος Διχοτόμου
+\end_layout
+
+\begin_layout Standard
+\noindent
+Δοθέντος ενός αρχικού διαστήματος 
+\begin_inset Formula $[a_{0},b_{0}]$
+\end_inset
+
+, υπολογίζεται τα σημεία 
+\begin_inset Formula $[x_{1},x_{2}]$
+\end_inset
+
+ δεξιά και αριστερά της διχοτόμου σε απόσταση 
+\begin_inset Formula $\pmε$
+\end_inset
+
+.
+ Η απόσταση 
+\begin_inset Formula $ε$
+\end_inset
+
+ δίνεται ως είσοδο στον αλγόριθμο.
+ Κατόπιν υπολογίζει την τιμή της συνάρτησης στα σημεία 
+\begin_inset Formula $[x_{1},x_{2}]$
+\end_inset
+
+, έστω 
+\begin_inset Formula $f(x_{1}),f(x_{2})$
+\end_inset
+
+.
+ Τότε αν 
+\begin_inset Formula $f(x_{1})>f(x_{2})$
+\end_inset
+
+, μετακινεί το 
+\begin_inset Formula $α_{0}$
+\end_inset
+
+ στο σημείο 
+\begin_inset Formula $x_{1}$
+\end_inset
+
+ (έστω 
+\begin_inset Formula $a_{1}$
+\end_inset
+
+) ενώ κρατάει το 
+\begin_inset Formula $b_{0}$
+\end_inset
+
+ σταθερό (
+\begin_inset Formula $b_{1}=b_{0}$
+\end_inset
+
+), καθώς στο διάστημα 
+\begin_inset Formula $[α_{0},x_{1}$
+\end_inset
+
+] αποκλείεται να βρίσκεται το ελάχιστο.Αν 
+\begin_inset Formula $f(x_{1})<f(x_{2})$
+\end_inset
+
+, μετακινεί το 
+\begin_inset Formula $b_{0}$
+\end_inset
+
+ στο σημείο 
+\begin_inset Formula $x_{2}$
+\end_inset
+
+ (έστω 
+\begin_inset Formula $b_{1}$
+\end_inset
+
+) ενώ κρατάει το 
+\begin_inset Formula $a_{0}$
+\end_inset
+
+ σταθερό (
+\begin_inset Formula $a_{1}=a_{0}$
+\end_inset
+
+), καθώς στο διάστημα 
+\begin_inset Formula $[x_{2},b_{0}$
+\end_inset
+
+] αποκλείεται να βρίσκεται το ελάχιστο.
+ Η διαδικασία επαναλαμβάνεται με εκ νέου υπολογισμό των 
+\begin_inset Formula $[x_{1},x_{2}]$
+\end_inset
+
+ στο νέο διάστημα 
+\begin_inset Formula $[α_{1},b_{1}]$
+\end_inset
+
+.
+ Συνθήκη τερματισμού αποτελεί αν το μήκος του διαστήματος 
+\begin_inset Formula $[a_{k},b_{k}]$
+\end_inset
+
+ είναι μικρότερο της ευαισθησίας 
+\begin_inset Formula $l$
+\end_inset
+
+.
+ Στην συγκεκριμένη υλοποίηση δίνεται και μία παράμετρος που ορίζει τον μέγιστο
+ αριθμό των επαναλήψεων.
+ Επίσης, αφού σε κάθε επανάληψη, τα 
+\begin_inset Formula $x_{1},x_{2}$
+\end_inset
+
+ αλλάζουν, τότε ο αριθμός των κλήσεων της 
+\begin_inset Formula $f(\cdot)$
+\end_inset
+
+ είναι δύο φορές ο αριθμός των επαναλήψεν του κυρίου βρόγχου: 
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+calls=2\cdot(k-1)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+όπου 
+\begin_inset Formula $k$
+\end_inset
+
+: ο αρθμός των επαναλήψεων του κυρίου βρόγχου και το 
+\begin_inset Formula $k$
+\end_inset
+
+ ξεκινάει από το 
+\begin_inset Formula $1$
+\end_inset
+
+ και στην 1η επανάληψη θα γίνει 
+\begin_inset Formula $2$
+\end_inset
+
+ (σύμβαση υλοποίησης, η αρίθμηση του MATLAB ξεκινάει απο το 1).
+ Δηλαδή ο κύριος βρόγχος τρέχει 
+\begin_inset Formula $(k-1)$
+\end_inset
+
+ φορές.
+ Επιπλέον, τα 
+\begin_inset Formula $x_{1},x_{2},a,b$
+\end_inset
+
+ αποθηκεύονται για τις διάφορες επαναλήψεις και επιστρέφονται στην έξοδο.
+ Σημειώνεται ότι τα 
+\begin_inset Formula $x_{1},x_{2}$
+\end_inset
+
+ δεν θα χρησιμοποιηθούν, απλά επιστρέφονται για λόγους πληρότητας.
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Μέθοδος Χρυσού Τομέα
+\end_layout
+
+\begin_layout Standard
+\noindent
+Δοθέντος ενός αρχικού διαστήματος 
+\begin_inset Formula $[a_{0},b_{0}]$
+\end_inset
+
+, υπολογίζεται τα σημεία 
+\begin_inset Formula $[x_{1},x_{2}]$
+\end_inset
+
+ ως:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x_{1}(k)=a(k)+(1-γ)\cdot(b(k)-a(k))
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x_{2}(k)=a(k)+\gamma\cdot(b(k)-a(k))
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+γ=0.618
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Κατόπιν η μέθοδος υπολογίζει την τιμή της συνάρτησης στα σημεία 
+\begin_inset Formula $[x_{1}(k),x_{2}(k)]$
+\end_inset
+
+, έστω 
+\begin_inset Formula $f(x_{1}(k)),f(x_{2}(k))$
+\end_inset
+
+.
+ Τότε αν 
+\begin_inset Formula $f(x_{1}(k))>f(x_{2}(k))$
+\end_inset
+
+, μετακινεί το 
+\begin_inset Formula $a(k)$
+\end_inset
+
+ στο σημείο 
+\begin_inset Formula $x_{1}(k)$
+\end_inset
+
+ (έστω 
+\begin_inset Formula $a_{1}(k+1)$
+\end_inset
+
+) ενώ κρατάει το 
+\begin_inset Formula $b(k)$
+\end_inset
+
+ σταθερό (
+\begin_inset Formula $b(k+1)=b(k)$
+\end_inset
+
+), καθώς στο διάστημα 
+\begin_inset Formula $[α_{0}(k),x_{1}(k)$
+\end_inset
+
+] αποκλείεται να βρίσκεται το ελάχιστο.Αν 
+\begin_inset Formula $f(x_{1}(k))<f(x_{2}(k))$
+\end_inset
+
+, μετακινεί το 
+\begin_inset Formula $b(k)$
+\end_inset
+
+ στο σημείο 
+\begin_inset Formula $x_{2}(k)$
+\end_inset
+
+ (έστω 
+\begin_inset Formula $b(k+1)$
+\end_inset
+
+) ενώ κρατάει το 
+\begin_inset Formula $a(k)$
+\end_inset
+
+ σταθερό (
+\begin_inset Formula $a(k+1)=a(k)$
+\end_inset
+
+), καθώς στο διάστημα 
+\begin_inset Formula $[x_{2}(k),b(k)$
+\end_inset
+
+] αποκλείεται να βρίσκεται το ελάχιστο.
+ Η διαδικασία επαναλαμβάνεται με εκ νέου υπολογισμό των 
+\begin_inset Formula $[x_{1}(k),x_{2}(k)]$
+\end_inset
+
+ στο νέο διάστημα 
+\begin_inset Formula $[a(k+1),b(k+1)]$
+\end_inset
+
+.
+ Σηνθήκη τερματισμού αποτελεί αν το μήκος του διαστήματος 
+\begin_inset Formula $[a_{k},b_{k}]$
+\end_inset
+
+ είναι μικρότερο της ευαισθησίας 
+\begin_inset Formula $l$
+\end_inset
+
+.
+ Στην συγκεκριμένη υλοποίηση δίνεται και μία παράμετρος που ορίζει τον μέγιστο
+ αριθμό των επαναλήψεων.
+ Επίσης, αφού σε κάθε επανάληψη πριν της αρχικής, ένα εκ των 
+\begin_inset Formula $x_{1},x_{2}$
+\end_inset
+
+ παραμένει σταθερό, ο αλγόριθμος αποθηκεύει το αποτέσμα 
+\begin_inset Formula $f(x_{1}),f(x_{2})$
+\end_inset
+
+ για να χρησιμοποιεί την τελευταία τιμή κάθε φορά.
+ Δηλαδή ισχύει ότι ο αριθμός των κλήσεων της 
+\begin_inset Formula $f(\cdot)$
+\end_inset
+
+ είναι είναι 2 στην αρχή σύν 1 για κάθε επανάληψη του κυρίου βρόγχου:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+calls=2+(k-1)=k+1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+όπου 
+\begin_inset Formula $k$
+\end_inset
+
+: ο αρθμός των επαναλήψεων του κυρίου βρόγχου και το 
+\begin_inset Formula $k$
+\end_inset
+
+ ξεκινάει από το 
+\begin_inset Formula $1$
+\end_inset
+
+ και στην 1η επανάληψη θα γίνει 
+\begin_inset Formula $2$
+\end_inset
+
+ (σύμβαση υλοποίησης, η αρίθμηση του MATLAB ξεκινάει απο το 1).
+ Δηλαδή ο κύριος βρόγχος τρέχει 
+\begin_inset Formula $(k-1)$
+\end_inset
+
+ φορές.
+ Επίσης, τα 
+\begin_inset Formula $x_{1},x_{2},a,b$
+\end_inset
+
+ αποθηκεύονται για τις διάφορες επαναλήψεις και επιστρέφονται στην έξοδο.
+ Σημειώνεται ότι τα 
+\begin_inset Formula $x_{1},x_{2}$
+\end_inset
+
+ δεν θα χρησιμοποιηθούν, απλά επιστρέφονται για λόγους πληρότητας.
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Μέθοδος Fibonacci
+\end_layout
+
+\begin_layout Standard
+\noindent
+H μέθοδος αυτή είναι ακριβώς ίδια με την Μέθοδο Χρυσού Τομέα, μόνο που οι
+ συντελεστές 
+\begin_inset Formula $γ,(1-γ)$
+\end_inset
+
+ αντικαθίστανται από όρους την ακολουθίας Fibonacci.
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x_{1}(k)=a(k)+(\frac{F_{n-k-1}}{F_{n-k+1}})\cdot(b(k)-a(k))
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+x_{2}(k)=a(k)+(\frac{F_{n-k}}{F_{n-k-1}})\cdot(b(k)-a(k))
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Εδώ όμως μένει να υπολογίσουμε το 
+\begin_inset Formula $n$
+\end_inset
+
+: αριθμός των επαναλήψεων.
+ Μετά από 
+\begin_inset Formula $n$
+\end_inset
+
+ επαναλήψεις ισχύει:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+b_{n}-a_{n}=\frac{1}{F_{n}}(b_{1}-a_{1})
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+b_{n}-a_{n}<l\Rightarrow\frac{1}{F_{n}}(b_{1}-a_{1})<l
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Έτσι, βρίσκουμε τον αριθμό Fibonacci που είναι μεγαλύτερος του 
+\begin_inset Formula $F_{n}$
+\end_inset
+
+ ενώ παράλληλα υπολογίζουμε και τους αριθμούς Fibonacci (πιο αποδοτικός
+ τρόπος απο τον αναδρομικό λόγω μειωμένης πολυπλοκότητας).
+ Τέλος προσθέτουμε 
+\begin_inset Formula $2$
+\end_inset
+
+ ακόμα αριθμούς που θα χρειαστούν λόγω του 
+\begin_inset Formula $+2$
+\end_inset
+
+ που εμφανίζεται για 
+\begin_inset Formula $k\leftarrow k+1$
+\end_inset
+
+.
+ Επίσης σημειώνεται ότι επειδή δεν χρησιμοποιούμε τον 
+\begin_inset Formula $F_{0}$
+\end_inset
+
+, η αναδρομή τρέχει έως 
+\begin_inset Formula $n-1$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\noindent
+Ομοίως με πριν ισχύει:
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Formula 
+\[
+calls=2+(k-1)=k+1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+για τους ίδιους ακριβώς λόγους.
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Μέθοδος Διχοτόμου με χρήση Παραγώγου
+\end_layout
+
+\begin_layout Standard
+\noindent
+Η μέθοδος αυτή χρησιμοποιεί την παράγωγο της 
+\begin_inset Formula $\frac{\partial f}{\partial x}$
+\end_inset
+
+.
+ Δοθέντος ενός διαστήματος 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+, Υπολογίζει την κλίση στην διχοτόμο 
+\begin_inset Formula $x(k)=\frac{a(k)+b(k)}{2}$
+\end_inset
+
+.
+ Εάν η κλίση είναι μηδέν, δηλαδή 
+\begin_inset Formula $\frac{\partial f}{\partial x}\mid_{x=x(k)}=0$
+\end_inset
+
+, τότε ο αλγόριθμος τερματίζει και πετύχαμε ακριβώς το ελάχιστο.
+ Αν 
+\begin_inset Formula $\frac{\partial f}{\partial x}\mid_{x=x(k)}>0$
+\end_inset
+
+ τότε το ελάχιστο 
+\begin_inset Formula $x^{*}\notin[x(k),b(k)]$
+\end_inset
+
+ και θέτουμε 
+\begin_inset Formula $a(k+1)=a(k),b(k+1)=x(k)$
+\end_inset
+
+.
+ Αν 
+\begin_inset Formula $\frac{\partial f}{\partial x}\mid_{x=x(k)}<0$
+\end_inset
+
+ τότε το ελάχιστο 
+\begin_inset Formula $x^{*}\notin[a(k),x(k)]$
+\end_inset
+
+ και θέτουμε 
+\begin_inset Formula $a(k+1)=x(k),b(k+1)=b(k)$
+\end_inset
+
+.
+ Αυτός ο αλγόριθμος υπολογίζει μία φορά την τιμή του 
+\begin_inset Formula $\frac{\partial f}{\partial x}$
+\end_inset
+
+ στο 
+\begin_inset Formula $x(k)$
+\end_inset
+
+ σε κάθε επανάληψη δηλαδή οι κλήσεις στην συνάρτηση 
+\begin_inset Formula $\frac{\partial f}{\partial x}$
+\end_inset
+
+ είναι ίσες με τις επαναλήψεις του βρόγχου, οπότε ισχύει
+\begin_inset Formula 
+\[
+calls=k-1
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+όπου 
+\begin_inset Formula $k$
+\end_inset
+
+: ο αρθμός των επαναλήψεων του κυρίου βρόγχου και το 
+\begin_inset Formula $k$
+\end_inset
+
+ ξεκινάει από το 
+\begin_inset Formula $1$
+\end_inset
+
+ και στην 1η επανάληψη θα γίνει 
+\begin_inset Formula $2$
+\end_inset
+
+ (σύμβαση υλοποίησης, η αρίθμηση του MATLAB ξεκινάει απο το 1).
+ Δηλαδή ο κύριος βρόγχος τρέχει 
+\begin_inset Formula $(k-1)$
+\end_inset
+
+ φορές.
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Σύνοψη
+\end_layout
+
+\begin_layout Standard
+Συνοψίζεται ο αριθμός των κλήσεων της αντικειμενικής συνάρτησης συναρτήσει
+ του αριθμού των επαναλήψεν του βρόγχου.
+ Τονίζουμε πάλι ότι ο βρόγχος εκτελελείται 
+\begin_inset Formula $Loops=k-1$
+\end_inset
+
+ φορές αλλα εμείς μετράμε το μήκος του 
+\begin_inset Formula $a$
+\end_inset
+
+ ή του 
+\begin_inset Formula $b$
+\end_inset
+
+ που είναι 
+\begin_inset Formula $k$
+\end_inset
+
+ (διατηρούμε τον συμβολισμό από τα scripts).
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Μέθοδος Διχοτόμου 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ 
+\begin_inset Formula $calls=2\cdot(k-1)=2\cdot Loops$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Μέθοδος Χρυσού Τομέα 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ 
+\begin_inset Formula $calls=k+1=Loops+2$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Μέθοδος Fibonacci 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ 
+\begin_inset Formula $calls=k+1=Loops+2$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\noindent
+Μέθοδος Διχοτόμου με χρήση Παραγώγου 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+ 
+\begin_inset Formula $calls=k-1=Loops$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+όπου υπενθυμίζουμε ότι 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $calls$
+\end_inset
+
+: αριθμός κλήσεων της συνάρτησης (
+\begin_inset Formula $f,\partial f/\partial x)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $Loops$
+\end_inset
+
+: αριθμός επαναλήψεων του βρόγχου
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $k$
+\end_inset
+
+: πόσες τιμές υπολογίζουμε για τα διαστήματα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ συμπεριλαμβανομένου του 
+\begin_inset Formula $a_{0},b_{0}$
+\end_inset
+
+.
+ Ισχύει 
+\begin_inset Formula $Loops=k-1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\noindent
+ΠΡΟΣΟΜΟΙΩΣΕΙΣ ΣΕ MATLAB
+\end_layout
+
+\begin_layout Standard
+\noindent
+Για την εποπτική επικύρωση των αποτελεσμάτων, χρησιμοποιήθηκε το 
+\series bold
+wolfram
+\series default
+.
+ Τα αποτελέσματα είναι τα εξής:
+\end_layout
+
+\begin_layout Itemize
+\noindent
+\begin_inset Formula $f_{1}(x)$
+\end_inset
+
+ ελάχιστο στο 
+\begin_inset Formula $x^{*}=2.25057$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\noindent
+\begin_inset Formula $f_{2}(x)$
+\end_inset
+
+ ελάχιστο στο 
+\begin_inset Formula $x^{*}=3.14159$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\noindent
+\begin_inset Formula $f_{3}(x)$
+\end_inset
+
+ ελάχιστο στο 
+\begin_inset Formula $x^{*}=3.81992$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Για τον σκοπό των προσομοιώσεων φτιάχτηκε επιπλέον η συνάρτηση 
+\series bold
+plot_intervals.m
+\series default
+ που εμφανίζει στο εκάστοτε figure τα διαστήματα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ σε βάθος επαναλήψεων.
+ Σημειώνεται ότι το αρχικό διάστημα που δίνεται 
+\begin_inset Formula $[a_{0},b_{0}]\equiv[a(1),b(1)]$
+\end_inset
+
+ εμφανίζεται για 
+\begin_inset Formula $k=1$
+\end_inset
+
+, ενώ η πρώτη επανάληψη βρίσκεται στο 
+\begin_inset Formula $k=2$
+\end_inset
+
+.
+ Οι 
+\begin_inset Formula $2$
+\end_inset
+
+ παραλαγγές την συνάρτησεις βασίζονται στο πώς να εμφανίζεται το διάστημα.
+ Προτιμήθηκε μία εκ των 
+\begin_inset Formula $2$
+\end_inset
+
+ για απεικόνιση στις επόμενες ενότητες.
+ Αναλυτικές οδηγίες χρήσης δίνονται μέσα στον κώδικα.
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Μέθοδος Διχοτόμου 
+\end_layout
+
+\begin_layout Standard
+\noindent
+H προσομοιώσεις βρίσκονται στο αρχείο
+\series bold
+ thema1.m
+\series default
+.
+ Τα figures αποθηκεύονται αυτόματα στον φάκελο PlotsThema1.
+\end_layout
+
+\begin_layout Subsubsection
+\noindent
+Σταθερό εύρος αναζήτης 
+\begin_inset Formula $l=0.01$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Μελετήθηκε ο αριθμός των κλήσεων της εκάστοτε συνάρτησης σε σχέση με την
+ απόσταση από την διχοτόμο 
+\begin_inset Formula $ε$
+\end_inset
+
+ για σταθερό εύρος αναζήτησης 
+\begin_inset Formula $l$
+\end_inset
+
+.
+ Τα αποτελέσματα για τις 3 συναρτήσεις είναι τα εξής
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema1/ToleranceFixed.png
+	lyxscale 60
+	width 55page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σταθερό εύρος αναζήτης 
+\begin_inset Formula $l=0.01$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Παρατηρούμε ότι αυξάνοντας την απόσταση απο την διχοτόμο, χρειαζόμαστε περισσότε
+ρες επαναλήψεις για να βρούμε το ελάχιστο με την ίδια ακρίβεια.
+ Αυτό είναι προφανές αφού η μέθοδος αργεί να 
+\begin_inset Quotes eld
+\end_inset
+
+κόψει
+\begin_inset Quotes erd
+\end_inset
+
+ το διάστημα σε μικρότερα για να πετύχει την ακρίβεια που ζητάμε.
+ Επίσης για τα γραφήματα για τις 3 συναρτήσεις, οι τιμές είναι πολύ κοντά
+ μεταξύ τους, που σημαίνει ότι ο ρυθμός σύγκλισης είναι σταθερός, ανεξαρτήτου
+ συνάρτησης.
+ Προσοχή ότι για μεγάλες τιμλες του 
+\begin_inset Formula $ε$
+\end_inset
+
+, ο αλγόριθμος δεν τερματίζει.
+\end_layout
+
+\begin_layout Subsubsection
+\noindent
+Σταθερή απόσταση απο διχοτόμο 
+\begin_inset Formula $ε=0.001$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Μελετήθηκε ο αριθμός των κλήσεων της εκάστοτε συνάρτησης σε σχέση με το
+ εύρος αναζήτησης 
+\begin_inset Formula $l$
+\end_inset
+
+ για σταθερή απόσταση από την διχοτόμο 
+\begin_inset Formula $ε=0.001$
+\end_inset
+
+.
+ Τα αποτελέσματα για τις 3 συναρτήσεις είναι τα εξής
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema1/DistanceFromBisectorFixed.png
+	lyxscale 60
+	width 55page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σταθερό εύρος αναζήτης 
+\begin_inset Formula $l=0.01$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Παρατηρούμε πως αυξάνοντας την ευαισθησία, δηλαδή αν είμαστε πιο ανεκτικοί
+ σε σφάλμα (μεγαλύτερο διάστημα για το ελάχιστο), πετυχαίνουμε το επιθυμητό
+ αποτέλεσμα σε λιγότερο αριθμό επαναλήψεων, όπως ήταν και αναμενόμενο αφού
+ για μικρότερη ευαισθησία, η μέθοδος θέλει κι άλλες επαναλήψεις για να 
+\begin_inset Quotes eld
+\end_inset
+
+μικρύνει
+\begin_inset Quotes erd
+\end_inset
+
+ το διάστημα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+.
+ Επίσης για τα γραφήματα, οι τιμές για τις 3 συναρτήσεις είναι πολύ κοντά
+ μεταξύ τους, που σημαίνει ότι ο ρυθμός σύγκλισης είναι σταθερός, ανεξαρτήτου
+ συνάρτησης.
+\end_layout
+
+\begin_layout Subsubsection
+\noindent
+Άκρα διαστήματος για 
+\begin_inset Formula $ε=0.001$
+\end_inset
+
+ και 
+\begin_inset Formula $l=[0.01,0.1,0.3]$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+Μελετήθηκε το εύρος των διαστημάτων 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για σταθερό 
+\begin_inset Formula $ε$
+\end_inset
+
+ και 3 τιμές του 
+\begin_inset Formula $l$
+\end_inset
+
+ που επιλέχθηκαν αυθαίτερα.
+ Τα αποτελέσματα έιναι τα εξής
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema1/f1_over_iter.png
+	lyxscale 60
+	width 45page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Διάστηματα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για την 
+\begin_inset Formula $f_{1}(x)$
+\end_inset
+
+ για κάποιες τιμές 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema1/f2_over_iter.png
+	lyxscale 60
+	width 45page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Διάστηματα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για την 
+\begin_inset Formula $f_{2}(x)$
+\end_inset
+
+ για κάποιες τιμές 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema1/f3_over_iter.png
+	lyxscale 60
+	width 45page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Διάστηματα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για την 
+\begin_inset Formula $f_{3}(x)$
+\end_inset
+
+ για κάποιες τιμές 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Παρατηρούμε ότι πράγματι ο αλγόριθμος συγκλίνει στο ελάχιστο που έχουμε
+ από το wolfram.
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Μέθοδος Χρυσού Τομέα
+\end_layout
+
+\begin_layout Standard
+\noindent
+H προσομοιώσεις βρίσκονται στο αρχείο 
+\series bold
+thema2.m
+\series default
+.
+ Τα figures αποθηκεύονται αυτόματα στον φάκελο PlotsThema2.
+\end_layout
+
+\begin_layout Subsubsection
+\noindent
+Μεταβλητό εύρος αναζήτης 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Μελετήθηκε ο αριθμός των κλήσεων της εκάστοτε συνάρτησης σε σχέση με το
+ εύρος αναζήτησης 
+\begin_inset Formula $l$
+\end_inset
+
+.
+ Τα αποτελέσματα για τις 3 συναρτήσεις είναι τα εξής
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema2/VariousTolerance.png
+	lyxscale 60
+	width 55page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σταθερό εύρος αναζήτης 
+\begin_inset Formula $l=0.01$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Παρατηρούμε πως αυξάνοντας την ευαισθησία, δηλαδή αν είμαστε πιο ανεκτικοί
+ σε σφάλμα (μεγαλύτερο διάστημα για το ελάχιστο), πετυχαίνουμε το επιθυμητό
+ αποτέλεσμα σε λιγότερο αριθμό επαναλήψεων, όπως ήταν και αναμενόμενο αφού
+ για μικρότερη ευαισθησία, η μέθοδος θέλει κι άλλες επαναλήψεις για να 
+\begin_inset Quotes eld
+\end_inset
+
+μικρύνει
+\begin_inset Quotes erd
+\end_inset
+
+ το διάστημα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+.
+ Επίσης για τα γραφήματα για τις 3 συναρτήσεις, οι τιμές είναι πολύ κοντά
+ μεταξύ τους, που σημαίνει ότι ο ρυθμός σύγκλισης είναι σταθερός, ανεξαρτήτου
+ συνάρτησης.
+\end_layout
+
+\begin_layout Subsubsection
+\noindent
+Άκρα διαστήματος 
+\begin_inset Formula $l=[0.01,0.1,0.3]$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+Μελετήθηκε το εύρος των διαστημάτων 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για 3 τιμές του 
+\begin_inset Formula $l$
+\end_inset
+
+ που επιλέχθηκαν αυθαίτερα.
+ Τα αποτελέσματα έιναι τα εξής
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema2/f1_over_iter.png
+	lyxscale 60
+	width 45page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Διάστηματα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για την 
+\begin_inset Formula $f_{1}(x)$
+\end_inset
+
+ για κάποιες τιμές 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema2/f2_over_iter.png
+	lyxscale 60
+	width 45page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Διάστηματα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για την 
+\begin_inset Formula $f_{2}(x)$
+\end_inset
+
+ για κάποιες τιμές 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema2/f3_over_iter.png
+	lyxscale 60
+	width 45page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Διάστηματα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για την 
+\begin_inset Formula $f_{3}(x)$
+\end_inset
+
+ για κάποιες τιμές 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Παρατηρούμε ότι πράγματι ο αλγόριθμος συγκλίνει στο ελάχιστο που έχουμε
+ από το wolfram.
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Μέθοδος Fibonacci
+\end_layout
+
+\begin_layout Standard
+\noindent
+H προσομοιώσεις βρίσκονται στο αρχείο 
+\series bold
+thema3.m
+\series default
+.
+ Τα figures αποθηκεύονται αυτόματα στον φάκελο PlotsThema3.
+\end_layout
+
+\begin_layout Subsubsection
+\noindent
+Μεταβλητό εύρος αναζήτης 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Μελετήθηκε ο αριθμός των κλήσεων της εκάστοτε συνάρτησης σε σχέση με το
+ εύρος αναζήτησης 
+\begin_inset Formula $l$
+\end_inset
+
+.
+ Τα αποτελέσματα για τις 3 συναρτήσεις είναι τα εξής
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema3/VariousTolerance.png
+	lyxscale 60
+	width 55page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σταθερό εύρος αναζήτης 
+\begin_inset Formula $l=0.01$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Παρατηρούμε πως αυξάνοντας την ευαισθησία, δηλαδή αν είμαστε πιο ανεκτικοί
+ σε σφάλμα (μεγαλύτερο διάστημα για το ελάχιστο), πετυχαίνουμε το επιθυμητό
+ αποτέλεσμα σε λιγότερο αριθμό επαναλήψεων, όπως ήταν και αναμενόμενο αφού
+ για μικρότερη ευαισθησία, η μέθοδος θέλει κι άλλες επαναλήψεις για να 
+\begin_inset Quotes eld
+\end_inset
+
+μικρύνει
+\begin_inset Quotes erd
+\end_inset
+
+ το διάστημα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+.
+ Επίσης για τα γραφήματα για τις 3 συναρτήσεις, οι τιμές είναι πολύ κοντά
+ μεταξύ τους, που σημαίνει ότι ο ρυθμός σύγκλισης είναι σταθερός, ανεξαρτήτου
+ συνάρτησης.
+ Σε μία γρήγορη σύγκριση με τον αλγόριθμο του Χρυσού Τομέα (που μοιάζουν
+ και το περισσότερο αφού η διαφορά του είναι ο συντελεστής επαναπροσαρμογής
+ των 
+\begin_inset Formula $a(k),b(k)$
+\end_inset
+
+), ο αλγόριθμος του Fibonacci χρειάζεται περισσότερες επαναλήψεις για να
+ πετύχει την ίδια ευαισθησία (βλέπουμε ότι τα όρια του y άξονα εδώ είναι
+ από 10 έως 16, ενώ στου Χρυσού Τομέα από 10 έως 14).
+ Επίσης ο αλγόριθμος του Χρυσού Τομέα, πετυχαίνει τον στόχο για υψηλή ανεκτικότη
+τα πολύ πιο γρήγορα (για μεγάλες τιμες ανεκτικότητας, ο αριθμός των επαναλήψεων
+ γίνειται ευθεία σε μικρότερη ανεκτικότητα σε σχέση με την μέθοδο Fibonacci).
+\end_layout
+
+\begin_layout Subsubsection
+\noindent
+Άκρα διαστήματος για 
+\begin_inset Formula $l=[0.01,0.1,0.3]$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+Μελετήθηκε το εύρος των διαστημάτων 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για 3 τιμές του 
+\begin_inset Formula $l$
+\end_inset
+
+ που επιλέχθηκαν αυθαίτερα.
+ Τα αποτελέσματα έιναι τα εξής
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema3/f1_over_iter.png
+	lyxscale 60
+	width 45page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Διάστηματα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για την 
+\begin_inset Formula $f_{1}(x)$
+\end_inset
+
+ για κάποιες τιμές 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema3/f2_over_iter.png
+	lyxscale 60
+	width 45page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Διάστηματα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για την 
+\begin_inset Formula $f_{2}(x)$
+\end_inset
+
+ για κάποιες τιμές 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema3/f3_over_iter.png
+	lyxscale 60
+	width 45page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Διάστηματα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για την 
+\begin_inset Formula $f_{3}(x)$
+\end_inset
+
+ για κάποιες τιμές 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Παρατηρούμε ότι πράγματι ο αλγόριθμος συγκλίνει στο ελάχιστο που έχουμε
+ από το wolfram.
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Μέθοδος Διχοτόμου με χρήση Παραγώγου
+\end_layout
+
+\begin_layout Standard
+\noindent
+H προσομοιώσεις βρίσκονται στο αρχείο 
+\series bold
+thema4.m
+\series default
+.
+ Τα figures αποθηκεύονται αυτόματα στον φάκελο PlotsThema4.
+\end_layout
+
+\begin_layout Subsubsection
+\noindent
+Μεταβλητό εύρος αναζήτης 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Μελετήθηκε ο αριθμός των κλήσεων της εκάστοτε συνάρτησης σε σχέση με το
+ εύρος αναζήτησης 
+\begin_inset Formula $l$
+\end_inset
+
+.
+ Τα αποτελέσματα για τις 3 συναρτήσεις είναι τα εξής
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema4/VariousTolerance.png
+	lyxscale 60
+	width 55page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Σταθερό εύρος αναζήτης 
+\begin_inset Formula $l=0.01$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Παρατηρούμε πως αυξάνοντας την ευαισθησία, δηλαδή αν είμαστε πιο ανεκτικοί
+ σε σφάλμα (μεγαλύτερο διάστημα για το ελάχιστο), πετυχαίνουμε το επιθυμητό
+ αποτέλεσμα σε λιγότερο αριθμό επαναλήψεων, όπως ήταν και αναμενόμενο αφού
+ για μικρότερη ευαισθησία, η μέθοδος θέλει κι άλλες επαναλήψεις για να 
+\begin_inset Quotes eld
+\end_inset
+
+μικρύνει
+\begin_inset Quotes erd
+\end_inset
+
+ το διάστημα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+.
+ Επίσης για τα γραφήματα για τις 3 συναρτήσεις, οι τιμές είναι πολύ κοντά
+ μεταξύ τους, που σημαίνει ότι ο ρυθμός σύγκλισης είναι σταθερός, ανεξαρτήτου
+ συνάρτησης
+\end_layout
+
+\begin_layout Subsubsection
+\noindent
+Άκρα διαστήματος για 
+\begin_inset Formula $l=[0.01,0.1,0.3]$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\noindent
+Μελετήθηκε το εύρος των διαστημάτων 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για 3 τιμές του 
+\begin_inset Formula $l$
+\end_inset
+
+ που επιλέχθηκαν αυθαίτερα.
+ Τα αποτελέσματα έιναι τα εξής
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema4/f1_over_iter.png
+	lyxscale 60
+	width 45page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Διάστηματα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για την 
+\begin_inset Formula $f_{1}(x)$
+\end_inset
+
+ για κάποιες τιμές 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema4/f2_over_iter.png
+	lyxscale 60
+	width 45page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Διάστηματα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για την 
+\begin_inset Formula $f_{2}(x)$
+\end_inset
+
+ για κάποιες τιμές 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename PlotsThema4/f3_over_iter.png
+	lyxscale 60
+	width 45page%
+	height 25pheight%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Διάστηματα 
+\begin_inset Formula $[a(k),b(k)]$
+\end_inset
+
+ για την 
+\begin_inset Formula $f_{3}(x)$
+\end_inset
+
+ για κάποιες τιμές 
+\begin_inset Formula $l$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\noindent
+Παρατηρούμε ότι πράγματι ο αλγόριθμος συγκλίνει στο ελάχιστο που έχουμε
+ από το wolfram.
+\end_layout
+
+\begin_layout Subsection
+\noindent
+Σύνοψη
+\end_layout
+
+\begin_layout Standard
+Συγκρίνοντας τα Figures 
+\begin_inset Formula $2,7,11,15$
+\end_inset
+
+ παρατηρούμε ότι τις λιγότερες κλήσεις στην αντικειμενική συνάρτηση έχει
+ η μέθοδος Διχοτόμου με την χρήση Παραγώγου, μετά η μέθοδος του Χρυσού Τομέα,
+ μετά η μέθοδος Fibonacci και τέλος η μέθοδος Διχοτόμου.
+\end_layout
+
+\end_body
+\end_document
